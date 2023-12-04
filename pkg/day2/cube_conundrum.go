@@ -24,14 +24,9 @@ func parser(text string) (string, string) {
 	return string(digits), string(letter)
 }
 
-func Solver(path string) int {
-	data, err := io.Read(path)
+func part1(data []string) int {
 
-	if err != nil {
-		log.Fatalf("Error to read input file")
-	}
-
-    sumGames := 0
+	sumGames := 0
 	for _, row := range data {
 		game := strings.Split(row, ":")
 		moves := strings.Split(game[1], ";")
@@ -46,15 +41,57 @@ func Solver(path string) int {
 				}
 			}
 		}
-        if !isGameInvalid {
-            n, _ := parser(game[0])
-            v, err:= strconv.Atoi(n)
-            if err != nil {
-                log.Printf("error to convert game %v", game[0])
-            }
-            sumGames += v 
-        }
+		if !isGameInvalid {
+			n, _ := parser(game[0])
+			v, err := strconv.Atoi(n)
+			if err != nil {
+				log.Printf("error to convert game %v", game[0])
+			}
+			sumGames += v
+		}
 	}
 
-	return sumGames 
+	return sumGames
+}
+
+func part2(data []string) int {
+
+	sumGames := 0
+	for _, row := range data {
+		game := strings.Split(row, ":")
+		moves := strings.Split(game[1], ";")
+		currRed := 0
+		currGreen := 0
+		currBlue := 0
+
+		for i := 0; i < len(moves); i++ {
+			items := strings.Split(moves[i], ",")
+			for j := 0; j < len(items); j++ {
+				num, cube := parser(items[j])
+				v, _ := strconv.Atoi(num)
+				if cube == "green" && currGreen < v {
+					currGreen = v
+				}
+				if cube == "red" && currRed < v {
+					currRed = v
+				}
+				if cube == "blue" && currBlue < v {
+					currBlue = v
+				}
+			}
+		}
+		sumGames += (currRed * currGreen * currBlue)
+	}
+	return sumGames
+}
+
+func Solver(path string) (int, int) {
+	data, err := io.Read(path)
+
+	if err != nil {
+		log.Fatalf("Error to read input file")
+	}
+	part1 := part1(data)
+	part2 := part2(data)
+	return part1, part2
 }
