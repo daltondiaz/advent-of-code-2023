@@ -1,26 +1,11 @@
 package day1
 
 import (
-	"bufio"
+	"daltondiaz/aoc-go-2023/pkg/io"
 	"log"
-	"os"
 	"strconv"
 	"strings"
 )
-
-func readInput(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	var lines []string
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
 
 func replaceDigit(text string) string {
 	curr := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
@@ -73,7 +58,7 @@ func findFirstAndLastDigit(text string, isReplace bool) int {
 }
 
 func Solver(path string) (int, int) {
-	lines, err := readInput(path)
+	lines, err := io.Read(path)
 	if err != nil {
 		log.Fatal("error to read the file")
 	}
