@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"unicode"
 )
 
 
@@ -16,14 +17,13 @@ func findFirstIdx(start int, row string) int {
 	}
 	return -1
 }
-
 func findLastIdx(start int, row string) int {
-	for i := start; i < len(row); i++ {
+	for i := start; i <len(row); i++ {
 		if _, err := strconv.Atoi(string(row[i])); err != nil {
 			return i
 		}
 	}
-	return -1
+	return len(row)
 }
 
 func evenDiagonally(first int, last int, currRow int, rows []string, adj [][]int) bool {
@@ -36,7 +36,7 @@ func evenDiagonally(first int, last int, currRow int, rows []string, adj [][]int
 
             // base cases
             // 1. verify if is not out bound of rows
-            if y < 0 || x < 0 || y == len(rows) || x == len(rows[i]) {
+            if y < 0 || x < 0 || y == len(rows) || x == len(rows[y]) {
                 continue
             }
 
@@ -48,13 +48,12 @@ func evenDiagonally(first int, last int, currRow int, rows []string, adj [][]int
                 continue
             }
 
-            if string(rows[y][x]) != "." {
-                fmt.Println("Values: x:",x,"y:",y,"adj:", string(rows[y][x]))
-                return true
+            if string(rows[y][x]) != "." && (unicode.IsSymbol(rune(rows[y][x])) || unicode.IsPunct(rune(rows[y][x]))) {
+                // fmt.Println(rows[currRow][first:last]) 
+                return true 
             }
         }
     }
-    fmt.Println("not adj")
     return false
 }
 
@@ -68,7 +67,6 @@ func Solver(path string) int {
 	}
 	for i := 0; i < len(rows); i++ {
 		j := 0
-		fmt.Println(rows[i])
         first := 0
         last := 0
 		for {
@@ -86,7 +84,6 @@ func Solver(path string) int {
                 continue
             }
 			if first > 0 || last > 0 {
-				fmt.Println(rows[i][first:last])
                 if evenDiagonally(first, last, i, rows, adj) {
                     v, err := strconv.Atoi(rows[i][first:last])
                     if err != nil {
@@ -97,7 +94,6 @@ func Solver(path string) int {
 			}
 			j = last + 1
 		}
-
 
 	}
 	return sum 
