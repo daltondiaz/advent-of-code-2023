@@ -17,4 +17,6 @@ func main() {
 
     resultDay3 := day3.Solver("./pkg/day3/input.txt")
 	fmt.Println("Day 3 - Part 1 - ", resultDay3)
+    resultMultiplyDay3 := day3.Multiply("./pkg/day3/input.txt")
+	fmt.Println("Day 3 - Part 2 - ", resultMultiplyDay3)
 }

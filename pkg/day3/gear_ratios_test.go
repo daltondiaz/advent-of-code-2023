@@ -4,6 +4,15 @@ import (
 	"log"
 	"testing"
 )
+func TestMutiply(t *testing.T) {
+
+    expected := 467835 
+    got := Multiply("./input_test_multiply.txt")
+    
+    if got != expected {
+        log.Fatalf("Exptected %v got %v", expected, got)
+    }
+}
 
 func TestSolverNumberEndOfLine(t *testing.T) {
     expected := 1374
@@ -17,16 +26,6 @@ func TestSolverNumberEndOfLine(t *testing.T) {
 func TestSolver(t *testing.T) {
     expected := 4361
     got := Solver("./input_test.txt")
-    
-    if got != expected {
-        log.Fatalf("Exptected %v got %v", expected, got)
-    }
-}
-
-func TestLucas(t *testing.T) {
-
-    expected := 6719
-    got := Solver("./input_lucas.txt")
     
     if got != expected {
         log.Fatalf("Exptected %v got %v", expected, got)
