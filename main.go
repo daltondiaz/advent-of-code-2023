@@ -4,6 +4,7 @@ import (
 	"daltondiaz/aoc-go-2023/pkg/day1"
 	"daltondiaz/aoc-go-2023/pkg/day2"
 	"daltondiaz/aoc-go-2023/pkg/day3"
+	"daltondiaz/aoc-go-2023/pkg/day4"
 	"fmt"
 )
 
@@ -19,4 +20,7 @@ func main() {
 	fmt.Println("Day 3 - Part 1 - ", resultDay3)
     resultMultiplyDay3 := day3.Multiply("./pkg/day3/input.txt")
 	fmt.Println("Day 3 - Part 2 - ", resultMultiplyDay3)
+
+    resultDay4 := day4.Part1("./pkg/day4/input.txt")
+	fmt.Println("Day 4 - Part 1 - ", resultDay4)
 }
